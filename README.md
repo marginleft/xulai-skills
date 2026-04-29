@@ -1,5 +1,7 @@
 <div align="center">
 
+[中文](./README.md) | [English](./README.en.md)
+
 # Xulai Skills
 
 #### 为 Codex / Claude Code 准备的可复用 AI Skills 仓库
@@ -15,16 +17,17 @@
 
 </div>
 
-`Xulai Skills` 目前主打一个高实用性的 Skill: `ai-tool-auditor`。  
-它不是再造一个“万能提示词合集”，而是解决一个很具体的问题:
+`Xulai Skills` 是一个以 GitHub 为主阵地的实用型 AI Skill 仓库。当前公开的第一个 Skill 是 `ai-tool-auditor`。
 
-**当你给 Codex / Claude Code 装了越来越多 plugin、agent、skill、MCP 之后，如何先盘点清楚，再安全清理。**
+它解决的是一个很具体的问题：
 
-> English summary: `Xulai Skills` is a GitHub-first collection of reusable AI agent skills. The first skill, `ai-tool-auditor`, inventories local Codex / Claude Code assets, counts recent usage from logs, exports CSV reports, and enforces a preview-before-apply cleanup workflow.
+**当你的 Codex / Claude Code 本地环境里堆积了越来越多 plugin、agent、skill、prompt 和 MCP 配置后，如何在真正清理之前，先把全貌盘点清楚。**
+
+> 英文版请见 [README.en.md](./README.en.md)。
 
 ![AI Tool Auditor Demo](./assets/ai-tool-auditor-demo.gif)
 
-## Quick Install
+## 快速安装
 
 ### Codex
 
@@ -42,7 +45,7 @@ mkdir -p ~/.claude/skills
 cp -R xulai-skills/ai-tool-auditor ~/.claude/skills/
 ```
 
-安装后重启你的 Agent，然后直接这样用:
+安装后重启 Agent，然后可以直接这样用：
 
 - `/audit`
 - `盘点一下我本地装了多少 Codex skills`
@@ -50,37 +53,37 @@ cp -R xulai-skills/ai-tool-auditor ~/.claude/skills/
 - `看看哪些 AI 工具最近没用过`
 - `按推荐索引 3,8 先预览删除`
 
-## Why This Repo Is Worth Starring
+## 为什么值得 Star
 
-- 解决的是重度 Agent 用户很常见、但很少有人认真做的“本地工具链治理”问题
-- 默认偏安全: `audit -> preview -> confirm -> apply`
+- 它解决的是重度 Agent 用户非常真实、但很少有人认真处理的“本地工具链治理”问题
+- 默认安全优先：`audit -> preview -> confirm -> apply`
 - 同时覆盖 `Codex` 和 `Claude Code`
-- 不是只给一句建议，而是真的生成 `CSV` 和清理候选
-- 对“0 usage”保持克制，不把“当前窗口没看到使用”误写成“永远没价值”
+- 不只是给建议，而是产出真正可行动的 `CSV` 和清理候选
+- 对“最近没看到使用”的解释足够克制，不会误导成“永远没价值”
 
-## What `ai-tool-auditor` Does
+## `ai-tool-auditor` 能做什么
 
-它会审计本地 AI 工具链资产，并把结果整理成能行动的输出。
+`ai-tool-auditor` 会审计本地 AI 工具链资产，并把结果整理成你可以立刻行动的输出。
 
-支持资产类型:
+支持资产类型：
 
 - Plugin
 - Agent
 - Skill
 - MCP server / MCP config
 
-支持能力:
+支持能力：
 
 - 盘点本地安装情况
 - 统计最近使用情况
 - 导出多份 CSV 报表
 - 生成低风险清理建议
 - 删除前先 preview
-- 确认后再 apply
+- 只有明确确认后才 apply
 
-## 30-Second Example
+## 30 秒看懂
 
-下面是一份真实运行过的审计结果摘要:
+下面是一份真实运行过的本地审计摘要：
 
 ```text
 tool=codex
@@ -96,7 +99,7 @@ recommended_skills=119
 recommended_mcps=2
 ```
 
-它还会输出:
+同时它还会输出：
 
 - `plugins.csv`
 - `agents.csv`
@@ -105,89 +108,88 @@ recommended_mcps=2
 - `combined.csv`
 - `recommended_deletions.csv`
 
-你可以把它理解成:
+你可以把它理解成：
 
-**本地 AI 工具链资产台账 + 最近使用视角 + 安全清理候选清单**
+**本地 AI 工具链资产台账 + 最近使用视角 + 保守型清理候选清单**
 
-## Why It Exists
+## 为什么会有这个 Skill
 
-很多人都会遇到这个阶段:
+很多重度 AI Agent 用户都会走到这个阶段：
 
 - 装了一堆 plugin、skill、agent、MCP
-- 当时觉得“以后会用”
-- 用久以后，已经不记得哪些真的在用
-- 想清理，但又怕误删
+- 当时觉得“以后可能会用”
+- 用久之后，已经说不清哪些真的还在用
+- 想清理，但又担心误删重要资产
 
 `ai-tool-auditor` 就是为这个阶段准备的。
 
-它的目标不是“帮你删快一点”，而是:
+它的目标不是“删得更快”，而是：
 
-**先让你知道自己到底装了什么，再决定删什么。**
+**先搞清楚本地 AI 工具链长什么样，再决定删什么。**
 
-## Safety Boundaries
+## 安全边界
 
-这个 Skill 的设计重点不是“删得快”，而是“删得明白”。
+这个 Skill 的核心不是激进清理，而是安全清理。
 
 - `audit` 阶段绝不删除
 - 没有 preview 不删除
-- 没有明确确认不删除
+- 没有明确确认不 apply
 - 当前日志窗口内有使用记录的不删
 - `.system` 下的系统 skills 不删
 - plugin cache 和 bundled runtime plugins 默认不删
 - MCP 配置修改前会先备份
 
-它对推荐结果的解释也很克制:
+它对推荐结果的解释也故意保持克制：
 
-> 当前窗口内未发现使用，不等于永远没价值。
+> 当前日志窗口内未发现使用，不等于长期没有价值。
 
-## Default Workflow
+## 默认工作流
 
-默认流程如下:
+默认流程如下：
 
-1. `audit`
+1. 先运行 `audit`
 2. 生成 Plugin / Agent / Skill / MCP 的 CSV
-3. 输出推荐清理项
-4. 选择若干索引，先做 preview
-5. 只有你明确确认后，才 apply
+3. 查看推荐清理项
+4. 对指定索引先做 preview
+5. 明确确认后才 apply
 
-默认命令示例:
+审计示例：
 
 ```bash
 python3 scripts/ai_tool_auditor.py audit --tool auto --days 30
 ```
 
-删除预览示例:
+删除预览示例：
 
 ```bash
 python3 scripts/ai_tool_auditor.py delete --csv /path/to/recommended_deletions.csv --indexes 3,8
 ```
 
-确认执行示例:
+确认执行示例：
 
 ```bash
 python3 scripts/ai_tool_auditor.py delete --csv /path/to/recommended_deletions.csv --indexes 3,8 --apply
 ```
 
-永久删除只有在你明确要求时才应该使用:
+永久删除只有在你明确需要时才应该使用：
 
 ```bash
 python3 scripts/ai_tool_auditor.py delete --csv /path/to/recommended_deletions.csv --indexes 3,8 --apply --mode delete
 ```
 
-## Repo Layout
+## 仓库结构
 
 ```text
 xulai-skills/
 ├── LICENSE
 ├── README.md
+├── README.en.md
 ├── assets/
 │   ├── ai-tool-auditor-demo.gif
 │   └── social-preview.jpg
 ├── docs/
-│   ├── marketing/
 │   └── releases/
-├── scripts/
-│   └── render_marketing_assets.sh
+│       └── v0.1.0.md
 └── ai-tool-auditor/
     ├── SKILL.md
     ├── agents/
@@ -206,23 +208,18 @@ xulai-skills/
 
 审计本地 Plugin / Agent / Skill / MCP 资产，导出 CSV 报表，并给出带 preview-confirm 流程的安全清理建议。
 
-适合这些请求:
+适合这些请求：
 
 - `/audit`
 - `AI 工具审计`
 - `盘点一下我本地装了多少 Codex skills`
 - `帮我导出 Claude Code plugins / agents / MCP 的 CSV`
 - `看看哪些本地 AI 工具最近没用过`
-- `帮我清理没用的 skills 或 MCP`
+- `帮我预览清理没用的 skills 或 MCP`
 
-## Release Notes And Promo Copy
-
-仓库里已经附带:
+## Release Notes
 
 - [v0.1.0 release notes](./docs/releases/v0.1.0.md)
-- [中文分发文案](./docs/marketing/launch-zh.md)
-- [English launch copy](./docs/marketing/launch-en.md)
-- [渠道版文案](./docs/marketing/channels.md)
 
 ## License
 
