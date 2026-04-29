@@ -30,7 +30,7 @@
 发布到 GitHub 后，在支持 Skill 的 Agent 里直接提供 skill 路径即可，例如：
 
 ```text
-帮我安装这个 skill：https://github.com/<your-account>/xulai-skills/tree/main/ai-tool-auditor
+帮我安装这个 skill：https://github.com/marginleft/xulai-skills/tree/main/ai-tool-auditor
 ```
 
 如果是本地使用，直接把 `ai-tool-auditor/` 目录放到对应 Agent 的 skills 目录即可。
@@ -66,15 +66,6 @@ xulai-skills/
         ├── _codex.py
         ├── _shared.py
         └── ai_tool_auditor.py
-```
-
-常见命令：
-
-```bash
-cd ai-tool-auditor
-python3 scripts/ai_tool_auditor.py audit --tool auto --days 30
-python3 scripts/ai_tool_auditor.py delete --csv /tmp/ai-tool-auditor/<file>.csv --indexes 3,8
-python3 scripts/ai_tool_auditor.py delete --csv /tmp/ai-tool-auditor/<file>.csv --indexes 3,8 --apply
 ```
 
 更多触发方式、输出约定和安全规则见 [ai-tool-auditor/SKILL.md](./ai-tool-auditor/SKILL.md)。
