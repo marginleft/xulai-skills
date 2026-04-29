@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Tool Auditor"
+  short_description: "Audit AI tool assets and cleanup candidates"
+  default_prompt: "Use $ai-tool-auditor to audit Plugin, Agent, SKILL, and MCP assets and recommend cleanup candidates."
