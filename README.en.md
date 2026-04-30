@@ -4,28 +4,48 @@
 
 # Xulai Skills
 
-#### Reusable AI agent skills for Codex and Claude Code
+#### High-signal, reusable AI skills for Codex and Claude Code
 
 [![GitHub stars](https://img.shields.io/github/stars/marginleft/xulai-skills?style=for-the-badge)](https://github.com/marginleft/xulai-skills/stargazers)
 [![GitHub release](https://img.shields.io/github/v/release/marginleft/xulai-skills?style=for-the-badge)](https://github.com/marginleft/xulai-skills/releases)
 [![License](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](./LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-1-10B981?style=for-the-badge)](#skills)
+[![Skills](https://img.shields.io/badge/Skills-2-10B981?style=for-the-badge)](#skills)
 
 ![Codex](https://img.shields.io/badge/Codex-Compatible-10B981?style=flat-square&logo=openai&logoColor=white)
 ![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-D97706?style=flat-square&logo=anthropic&logoColor=white)
-![Safety First](https://img.shields.io/badge/Cleanup-Preview_First-2563EB?style=flat-square)
+![Workflow First](https://img.shields.io/badge/Workflow-Reusable-2563EB?style=flat-square)
 
 </div>
 
-`Xulai Skills` is a GitHub-first collection of practical, reusable skills for AI coding agents. The first public skill in this repo is `ai-tool-auditor`.
+`Xulai Skills` is a practical repository of reusable AI skills for `Codex` and `Claude Code`. The focus here is not generic prompt collections. The focus is workflow-ready skills with clear triggers, constraints, and outputs that people can actually reuse.
 
-It solves a very specific problem:
+This repository currently includes 2 public skills:
 
-**When your local Codex or Claude Code setup fills up with plugins, agents, skills, prompts, and MCP entries, how do you review everything clearly before cleaning it up?**
+- [`ai-tool-auditor`](./ai-tool-auditor/SKILL.md): audit and safely clean up local AI toolchain assets
+- [`prompt-optimization`](./prompt-optimization/SKILL.md): turn vague requests into stable, reusable, verifiable prompts
 
-> Chinese version: [README.md](./README.md)
+> If this repo saves you time, a Star helps more Codex and Claude Code users discover it.
 
-![AI Tool Auditor Demo](./assets/ai-tool-auditor-demo.gif)
+## Why Follow This Repo
+
+- Real problems, not demo-only examples
+- Reusable workflows instead of one-off answers
+- Clear boundaries: what each skill does, does not do, and how it handles missing information
+- Bilingual docs that work for both Chinese and English readers
+- Useful for individuals today and for team knowledge systems later
+
+## Skills
+
+| Skill | What it solves | Best for | Key value |
+|------|------|------|------|
+| [`ai-tool-auditor`](./ai-tool-auditor/SKILL.md) | Local plugins, agents, skills, and MCP entries pile up over time, but cleanup feels risky | Heavy Codex / Claude Code users | Audit, CSV exports, conservative cleanup recommendations, preview-before-apply |
+| [`prompt-optimization`](./prompt-optimization/SKILL.md) | Prompts are vague, outputs drift, and good requests are hard to reuse | Anyone who wants more reliable AI outputs | Diagnose weak spots, rewrite structure, specify output format, preserve user intent |
+
+## Which Skill Should I Start With
+
+Use `ai-tool-auditor` if you want to govern your local AI toolchain safely.
+
+Use `prompt-optimization` if you want to turn rough natural language into a prompt that produces more consistent results.
 
 ## Quick Install
 
@@ -35,6 +55,7 @@ It solves a very specific problem:
 git clone https://github.com/marginleft/xulai-skills.git
 mkdir -p ~/.codex/skills
 cp -R xulai-skills/ai-tool-auditor ~/.codex/skills/
+cp -R xulai-skills/prompt-optimization ~/.codex/skills/
 ```
 
 ### Claude Code
@@ -43,9 +64,16 @@ cp -R xulai-skills/ai-tool-auditor ~/.codex/skills/
 git clone https://github.com/marginleft/xulai-skills.git
 mkdir -p ~/.claude/skills
 cp -R xulai-skills/ai-tool-auditor ~/.claude/skills/
+cp -R xulai-skills/prompt-optimization ~/.claude/skills/
 ```
 
-Restart your agent after installation, then try prompts like:
+Restart your agent after installation, then trigger the skills with natural-language requests.
+
+## `ai-tool-auditor`
+
+`ai-tool-auditor` audits your local AI toolchain and turns the results into something you can act on immediately.
+
+Typical requests:
 
 - `/audit`
 - `Audit my local Codex skills`
@@ -53,101 +81,16 @@ Restart your agent after installation, then try prompts like:
 - `Which AI tools have not been used recently?`
 - `Preview deletion for recommended indexes 3,8`
 
-## Why This Repo Is Worth Starring
+Core capabilities:
 
-- It targets a real maintenance problem for heavy AI-agent users
-- It is safety-first by default: `audit -> preview -> confirm -> apply`
-- It supports both `Codex` and `Claude Code`
-- It produces actionable outputs, not just generic advice
-- It treats "no recent usage found" carefully instead of pretending that means "safe forever"
-
-## What `ai-tool-auditor` Does
-
-`ai-tool-auditor` audits your local AI toolchain and turns the results into something you can actually act on.
-
-Supported asset types:
-
-- Plugin
-- Agent
-- Skill
-- MCP server / MCP config
-
-Supported workflows:
-
-- inventory local installations
-- count recent usage from logs
+- inventory local Plugin / Agent / Skill / MCP assets
+- count recent usage
 - export multiple CSV reports
 - recommend low-risk cleanup candidates
-- preview deletion before apply
+- require preview before deletion
 - apply cleanup only after explicit confirmation
 
-## 30-Second Example
-
-Here is a real audit summary from a local Codex environment:
-
-```text
-tool=codex
-days=30
-usage_status=counted
-plugins=18
-agents=30
-skills=177
-mcps=4
-recommended_plugins=7
-recommended_agents=27
-recommended_skills=119
-recommended_mcps=2
-```
-
-The audit also writes:
-
-- `plugins.csv`
-- `agents.csv`
-- `skills.csv`
-- `mcps.csv`
-- `combined.csv`
-- `recommended_deletions.csv`
-
-In practice, this gives you:
-
-**a local AI toolchain inventory + recent usage view + conservative cleanup shortlist**
-
-## Why It Exists
-
-Most heavy AI-agent users eventually end up here:
-
-- you installed many plugins, skills, agents, and MCP integrations
-- some of them were added "just in case"
-- after a while, you no longer remember what is still useful
-- you want to clean up, but you do not want to delete something important by mistake
-
-`ai-tool-auditor` exists for that exact stage.
-
-The goal is not "delete faster."
-
-The goal is:
-
-**understand your local AI toolchain before you delete anything**
-
-## Safety Boundaries
-
-This skill is optimized for safe cleanup, not aggressive cleanup.
-
-- `audit` never deletes anything
-- no preview, no deletion
-- no explicit confirmation, no apply
-- assets with recent usage in the current log window are not deleted
-- system skills under `.system` are not deleted
-- plugin cache and bundled runtime plugins are skipped by default
-- MCP configs are backed up before modification
-
-Its recommendation language is intentionally conservative:
-
-> No usage found in the current log window does not mean no long-term value.
-
-## Default Workflow
-
-The default flow is:
+Default workflow:
 
 1. Run `audit`
 2. Generate CSVs for plugins, agents, skills, and MCPs
@@ -167,17 +110,76 @@ Preview cleanup:
 python3 scripts/ai_tool_auditor.py delete --csv /path/to/recommended_deletions.csv --indexes 3,8
 ```
 
-Apply cleanup after review:
+Apply cleanup:
 
 ```bash
 python3 scripts/ai_tool_auditor.py delete --csv /path/to/recommended_deletions.csv --indexes 3,8 --apply
 ```
 
-Permanent deletion should only be used when you explicitly want it:
+## `prompt-optimization`
 
-```bash
-python3 scripts/ai_tool_auditor.py delete --csv /path/to/recommended_deletions.csv --indexes 3,8 --apply --mode delete
+`prompt-optimization` turns rough intent into prompts that are clearer, easier to reuse, and more likely to produce consistent model outputs. Its goal is not prettier wording. Its goal is better structure, boundaries, and verifiable results.
+
+Typical requests:
+
+- `Optimize this prompt`
+- `Help me turn this sentence into an AI instruction`
+- `This prompt is too vague, make it more precise`
+- `How should I ask this more clearly?`
+- `Write a structured prompt for me`
+
+How it works:
+
+1. Diagnose the highest-value 2 to 3 prompt problems
+2. Rewrite using structures like `Task / Context / Input / Constraints / Output Format / When Information Is Missing`
+3. Add workflow, checks, and failure handling for more complex tasks
+4. Make the smallest reasonable assumption when context is incomplete instead of stalling or guessing wildly
+
+It is especially good at fixing:
+
+- vague task framing
+- missing boundaries
+- missing output format
+- mixed goals inside one request
+- missing audience or context
+
+Common structure for simple tasks:
+
+```text
+Task:
+Context:
+Input:
+Constraints:
+Output Format:
+When Information Is Missing:
 ```
+
+Common structure for more complex tasks:
+
+```text
+Role:
+Goal:
+Background / Context:
+Input Materials:
+Workflow:
+Constraints:
+Output Format:
+Checks:
+When Information Is Missing:
+```
+
+Typical output from the skill includes:
+
+- one improved prompt that is ready to use
+- 3 to 5 short notes explaining the highest-value improvements
+- assumptions, missing context, and next details to add
+
+## Why These Skills Keep Paying Off
+
+- They package repeatable workflows instead of one-time outputs
+- They define boundaries and failure handling, which makes them safer to reuse
+- They help on the first run and continue to help on repeated runs
+- They are useful building blocks for team-level AI workflows
 
 ## Repo Layout
 
@@ -192,36 +194,30 @@ xulai-skills/
 ├── docs/
 │   └── releases/
 │       └── v0.1.0.md
-└── ai-tool-auditor/
-    ├── SKILL.md
-    ├── agents/
-    │   └── openai.yaml
-    └── scripts/
-        ├── __main__.py
-        ├── _claude.py
-        ├── _codex.py
-        ├── _shared.py
-        └── ai_tool_auditor.py
+├── ai-tool-auditor/
+│   ├── SKILL.md
+│   ├── agents/
+│   │   └── openai.yaml
+│   └── scripts/
+│       ├── __main__.py
+│       ├── _claude.py
+│       ├── _codex.py
+│       ├── _shared.py
+│       └── ai_tool_auditor.py
+└── prompt-optimization/
+    └── SKILL.md
 ```
-
-## Skills
-
-### [`ai-tool-auditor`](./ai-tool-auditor/SKILL.md)
-
-Audit local Plugin / Agent / Skill / MCP assets, export CSV reports, and recommend safe cleanup candidates with a preview-confirm workflow.
-
-Typical requests:
-
-- `/audit`
-- `Audit my local AI tools`
-- `How many Codex skills do I have installed?`
-- `Export CSVs for my Claude Code setup`
-- `Which local AI tools have not been used recently?`
-- `Help me preview cleanup for unused skills or MCP entries`
 
 ## Release Notes
 
 - [v0.1.0 release notes](./docs/releases/v0.1.0.md)
+
+## Roadmap
+
+- add more high-signal skills built from real workflows
+- publish more examples and demos
+- improve installation ergonomics and repo navigation
+- welcome issues and PRs around useful agent workflows
 
 ## License
 
